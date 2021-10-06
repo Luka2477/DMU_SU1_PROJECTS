@@ -3,17 +3,16 @@ package model;
 import java.util.ArrayList;
 
 public class Board {
-    // Defines the size of the board. Must be according to the pattern 3, 7, 11, 15...
-    private final int size;
+    // Defines the size of the board. Must be a multiple of 4...
+    private final int size = 44;
     private final ArrayList<Land> board = new ArrayList<>();
 
-    public Board(int size) {
-        this.size = size;
+    public Board() {
         this.init();
     }
 
     private void init() {
-        for(int i=0; i<this.size; i++)
+        for(int i=0; i<this.size-4; i++)
             this.board.add(new Land(i));
     }
 
