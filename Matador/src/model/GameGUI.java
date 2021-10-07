@@ -58,10 +58,12 @@ public class GameGUI extends Application {
         MainMenuGUI.drawMenu(this);
     }
 
-    public void makeBoard() {
+    public void makeBoard() { this.makeBoard("Click any tile to change it");}
+
+    public void makeBoard(String text) {
         this.clearPane();
 
-        MakeBoardGUI.drawBoard(this);
+        MakeBoardGUI.drawBoard(this, text);
     }
 
     public void loadBoard() {

@@ -15,7 +15,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MakeBoardGUI {
-    public static void drawBoard(GameGUI game) {
+    public static void drawBoard(GameGUI game, String headerText) {
         Pane pane = game.getPane();
         Group group = game.getGroup();
         ButtonArray buttons = game.getButtons();
@@ -48,7 +48,7 @@ public class MakeBoardGUI {
         }
 
         double headerFontSize = width / 25;
-        Text header = new Text("Click any tile to change it");
+        Text header = new Text(headerText);
         header.setX(width / 2 - headerFontSize * 5);
         header.setY(height / 2 - height / 5);
         header.setFont(new Font(headerFontSize));
@@ -75,8 +75,7 @@ public class MakeBoardGUI {
             button.setFont(new Font(width / 50));
             button.setWrapText(true);
             button.setOnAction(actionEvent -> {
-                header.setText(String.format("You are changing land %s", text));
-                game.makeBoard();
+                game.makeBoard(String.format("You are changing land %s", text));
                 MakeBoardGUI.handleClickedLand(game, finalI);
             });
             group.getChildren().add(button);
@@ -94,8 +93,10 @@ public class MakeBoardGUI {
         double height = pane.getPrefHeight();
 
         double headerY = height / 2 - height / 5;
-        double nameY = headerY + height / 20;
-        double priceY = headerY + height / 10;
+        double offsetY = height / 20;
+        double nameY = headerY + offsetY;
+        double priceY = headerY + offsetY * 2;
+        double rentY = headerY + offsetY * 3;
 
         Label labelName = new Label("Name: ");
         labelName.setLayoutX(width / 2 - width / 10);
@@ -124,5 +125,19 @@ public class MakeBoardGUI {
         price.setLayoutY(priceY);
         price.setPrefWidth(width / 5);
         group.getChildren().add(price);
+
+        Label labelRent = new Label("Rent: ");
+        labelRent.setLayoutX(width / 2 - width / 10);
+        labelRent.setLayoutY(rentY);
+        labelRent.setPrefWidth(width / 5);
+        labelRent.setFont(new Font(width / 50));
+        labelRent.setTextAlignment(TextAlignment.RIGHT);
+        group.getChildren().add(labelRent);
+
+        NumericTextField rent = new NumericTextField();
+        rent.setLayoutX(width / 2);
+        rent.setLayoutY(rentY);
+        rent.setPrefWidth(width / 5);
+        group.getChildren().add(rent);
     }
 }
