@@ -5,12 +5,14 @@ public class BuyableLand extends Land {
     private final int price;
     private final String name;
     private Player owner = null;
+    private final boolean shipping;
 
-    public BuyableLand(int position, int rent, int price, String name) {
+    public BuyableLand(int position, int rent, int price, String name, boolean shipping) {
         super(position);
         this.rent = rent;
         this.price = price;
         this.name = name;
+        this.shipping = shipping;
     }
 
     public boolean hasOwner() {
@@ -33,4 +35,6 @@ public class BuyableLand extends Land {
     public String getName() { return this.name; }
 
     public Player getOwner() { return this.owner; }
+
+    public boolean isShipping() { return this.shipping; }
 }
