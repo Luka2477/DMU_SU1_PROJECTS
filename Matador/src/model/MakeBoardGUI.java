@@ -42,15 +42,18 @@ public class MakeBoardGUI {
 
         for(int i=0; i<boardSize-4; i++) {
             String text;
-            if(i == 0)
+            int finalI = i;
+            Button button = new Button();
+
+            if(i == 0) {
                 text = "Start";
-            else if(board.getLand(i) instanceof BuyableLand)
+                button.setDisable(true);
+            } else if(board.getLand(i) instanceof BuyableLand)
                 text = ((BuyableLand) board.getLand(i)).getName();
             else
                 text = Integer.toString(i);
 
-            int finalI = i;
-            Button button = new Button(text);
+            button.setText(text);
             button.setLayoutX(buttonX.get(i));
             button.setLayoutY(buttonY.get(i));
             button.setPrefSize(landSize, landSize);
@@ -71,6 +74,6 @@ public class MakeBoardGUI {
         double width = pane.getPrefWidth();
         double height = pane.getPrefHeight();
 
-        System.out.println(position);
+
     }
 }
