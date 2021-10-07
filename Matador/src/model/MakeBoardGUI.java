@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,14 @@ public class MakeBoardGUI {
             buttonY.add(landSize * j);
         }
 
+        double headerFontSize = width / 25;
+        Text header = new Text("Click any tile to change it");
+        header.setX(width / 2 - headerFontSize * 5);
+        header.setY(height / 2 - height / 10);
+        header.setFont(new Font(headerFontSize));
+        header.setTextAlignment(TextAlignment.CENTER);
+        group.getChildren().add(header);
+
         for(int i=0; i<boardSize-4; i++) {
             String text;
             int finalI = i;
@@ -59,7 +69,10 @@ public class MakeBoardGUI {
             button.setPrefSize(landSize, landSize);
             button.setFont(new Font(width / 50));
             button.setWrapText(true);
-            button.setOnAction(actionEvent -> MakeBoardGUI.handleClickedLand(game, finalI));
+            button.setOnAction(actionEvent -> {
+                header.setText(String.format("You are changing land %s", text));
+                MakeBoardGUI.handleClickedLand(game, finalI);
+            });
             group.getChildren().add(button);
             buttons.add(text, button);
         }
