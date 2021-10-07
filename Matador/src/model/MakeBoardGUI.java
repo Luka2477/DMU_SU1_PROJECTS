@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MakeBoardGUI {
@@ -229,7 +230,7 @@ public class MakeBoardGUI {
         save.setFont(new Font(width / 50));
         save.setOnAction(actionEvent -> {
             game.clearPane();
-            SaveBoard.saveBoard(game);
+            SaveBoard.saveBoard(game, name.getText());
             MainMenuGUI.drawMenu(game);
         });
         group.getChildren().add(save);
