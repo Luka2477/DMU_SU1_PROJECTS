@@ -1,12 +1,17 @@
 package model;
 
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class MakeBoardGUI {
@@ -45,7 +50,7 @@ public class MakeBoardGUI {
         double headerFontSize = width / 25;
         Text header = new Text("Click any tile to change it");
         header.setX(width / 2 - headerFontSize * 5);
-        header.setY(height / 2 - height / 10);
+        header.setY(height / 2 - height / 5);
         header.setFont(new Font(headerFontSize));
         header.setTextAlignment(TextAlignment.CENTER);
         group.getChildren().add(header);
@@ -71,6 +76,7 @@ public class MakeBoardGUI {
             button.setWrapText(true);
             button.setOnAction(actionEvent -> {
                 header.setText(String.format("You are changing land %s", text));
+                game.makeBoard();
                 MakeBoardGUI.handleClickedLand(game, finalI);
             });
             group.getChildren().add(button);
@@ -87,6 +93,36 @@ public class MakeBoardGUI {
         double width = pane.getPrefWidth();
         double height = pane.getPrefHeight();
 
+        double headerY = height / 2 - height / 5;
+        double nameY = headerY + height / 20;
+        double priceY = headerY + height / 10;
 
+        Label labelName = new Label("Name: ");
+        labelName.setLayoutX(width / 2 - width / 10);
+        labelName.setLayoutY(nameY);
+        labelName.setPrefWidth(width / 5);
+        labelName.setFont(new Font(width / 50));
+        labelName.setTextAlignment(TextAlignment.RIGHT);
+        group.getChildren().add(labelName);
+
+        TextField name = new TextField();
+        name.setLayoutX(width / 2);
+        name.setLayoutY(nameY);
+        name.setPrefWidth(width / 5);
+        group.getChildren().add(name);
+
+        Label labelPrice = new Label("Price: ");
+        labelPrice.setLayoutX(width / 2 - width / 10);
+        labelPrice.setLayoutY(priceY);
+        labelPrice.setPrefWidth(width / 5);
+        labelPrice.setFont(new Font(width / 50));
+        labelPrice.setTextAlignment(TextAlignment.RIGHT);
+        group.getChildren().add(labelPrice);
+
+        NumericTextField price = new NumericTextField();
+        price.setLayoutX(width / 2);
+        price.setLayoutY(priceY);
+        price.setPrefWidth(width / 5);
+        group.getChildren().add(price);
     }
 }

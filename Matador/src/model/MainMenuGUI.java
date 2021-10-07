@@ -19,16 +19,16 @@ public class MainMenuGUI {
         double headerFontSize = width / 25;
 
         Text header = new Text("Welcome to Matador");
-        header.setX(width / 2 - headerFontSize * 5);
+        header.setX(width / 2);
         header.setY(height / 2 - height / 20);
         header.setFont(new Font(headerFontSize));
         header.setTextAlignment(TextAlignment.CENTER);
         group.getChildren().add(header);
 
         Button makeBoard = new Button("Make a board");
-        makeBoard.setLayoutX(width / 2 - width / 10);
+        makeBoard.setLayoutX(width / 2 + width / 10);
         makeBoard.setLayoutY(height / 2);
-        makeBoard.setMaxWidth(width / 5);
+        makeBoard.setPrefWidth(width / 5);
         makeBoard.setMaxHeight(height / 15);
         makeBoard.setFont(new Font(width / 50));
         makeBoard.setOnAction(actionEvent -> game.makeBoard());
@@ -36,9 +36,9 @@ public class MainMenuGUI {
         buttons.add("makeBoard", makeBoard);
 
         Button loadBoard = new Button("Load a board");
-        loadBoard.setLayoutX(width / 2 - width / 10);
+        loadBoard.setLayoutX(width / 2 + width / 10);
         loadBoard.setLayoutY(height / 2 + height / 20);
-        loadBoard.setMaxWidth(width / 5);
+        loadBoard.setPrefWidth(width / 5);
         loadBoard.setMaxHeight(height / 15);
         loadBoard.setFont(new Font(width / 50));
         loadBoard.setOnAction(actionEvent -> game.loadBoard());

@@ -4,13 +4,15 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class GameGUI extends Application {
-    private Pane pane;
+    private StackPane pane;
     private Group group;
 
     private Board board;
@@ -30,7 +32,7 @@ public class GameGUI extends Application {
     }
 
     private Pane initContent() {
-        this.pane = new Pane();
+        this.pane = new StackPane();
         this.pane.setPrefSize(800, 800);
         this.group = new Group();
         this.pane.getChildren().add(this.group);
