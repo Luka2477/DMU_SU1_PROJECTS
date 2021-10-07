@@ -47,7 +47,7 @@ public class GameGUI extends Application {
     public ButtonArray getButtons() { return this.buttons; }
     public Board getBoard() { return this.board; }
 
-    private void clearPane() {
+    public void clearPane() {
         this.group.getChildren().remove(0, this.group.getChildren().toArray().length);
         this.buttons.removeAll();
     }
@@ -57,6 +57,8 @@ public class GameGUI extends Application {
 
         MainMenuGUI.drawMenu(this);
     }
+
+    public void resetBoard() { this.board.init(); }
 
     public void makeBoard() { this.makeBoard("Click any tile to change it");}
 

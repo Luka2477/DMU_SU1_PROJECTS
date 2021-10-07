@@ -1,17 +1,15 @@
 package model;
 
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class MakeBoardGUI {
@@ -81,13 +79,38 @@ public class MakeBoardGUI {
             group.getChildren().add(button);
             buttons.add(text, button);
         }
+
+        Button saveBoard = new Button("Save board");
+        saveBoard.setLayoutX(landSize + 10);
+        saveBoard.setLayoutY(height - landSize - height / 15 - 10);
+        saveBoard.setPrefWidth(width / 5);
+        saveBoard.setPrefHeight(height / 15);
+        saveBoard.setFont(new Font(width / 50));
+        saveBoard.setOnAction(actionEvent -> {
+            game.makeBoard("Save board");
+            MakeBoardGUI.handleSaveBoard(game);
+        });
+        group.getChildren().add(saveBoard);
+        buttons.add("saveBoard", saveBoard);
+
+        Button resetBoard = new Button("Reset board");
+        resetBoard.setLayoutX(width - landSize - width / 5 - 10);
+        resetBoard.setLayoutY(height - landSize - height / 15 - 10);
+        resetBoard.setPrefWidth(width / 5);
+        resetBoard.setPrefHeight(height / 15);
+        resetBoard.setFont(new Font(width / 50));
+        resetBoard.setOnAction(actionEvent -> {
+            game.resetBoard();
+            game.makeBoard();
+        });
+        group.getChildren().add(resetBoard);
+        buttons.add("resetBoard", resetBoard);
     }
 
     public static void handleClickedLand(GameGUI game, int position) {
         Pane pane = game.getPane();
         Group group = game.getGroup();
         ButtonArray buttons = game.getButtons();
-        Board board = game.getBoard();
 
         double width = pane.getPrefWidth();
         double height = pane.getPrefHeight();
@@ -139,5 +162,77 @@ public class MakeBoardGUI {
         rent.setLayoutY(rentY);
         rent.setPrefWidth(width / 5);
         group.getChildren().add(rent);
+
+        CheckBox isShipping = new CheckBox("Should the land be shipping land?");
+        isShipping.setLayoutX(width / 2 - width / 10);
+        isShipping.setLayoutY(headerY + offsetY * 4);
+        isShipping.setFont(new Font(width / 60));
+        group.getChildren().add(isShipping);
+
+        Button save = new Button("Save changes");
+        save.setLayoutX(width / 2);
+        save.setLayoutY(headerY + offsetY * 5);
+        save.setPrefWidth(width / 5);
+        save.setPrefHeight(height / 15);
+        save.setFont(new Font(width / 50));
+        save.setOnAction(actionEvent -> MakeBoardGUI.handleSaveChanges(
+                game,
+                position,
+                name.getText(),
+                Integer.parseInt(price.getText()),
+                Integer.parseInt(rent.getText()),
+                isShipping.isSelected()
+        ));
+        group.getChildren().add(save);
+        buttons.add("saveChanges", save);
+    }
+
+    public static void handleSaveChanges(GameGUI game, int position, String name, int price, int rent, boolean isShipping) {
+        Board board = game.getBoard();
+
+        BuyableLand buyableLand = new BuyableLand(position, rent, price, name, isShipping);
+        board.setLand(position, buyableLand);
+
+        game.makeBoard(String.format("Saved changes to %s", name));
+    }
+
+    public static void handleSaveBoard(GameGUI game) {
+        Pane pane = game.getPane();
+        Group group = game.getGroup();
+        ButtonArray buttons = game.getButtons();
+
+        double width = pane.getPrefWidth();
+        double height = pane.getPrefHeight();
+
+        double headerY = height / 2 - height / 5;
+        double offsetY = height / 20;
+
+        Label labelName = new Label("Board name: ");
+        labelName.setLayoutX(width / 2 - width / 8);
+        labelName.setLayoutY(headerY + offsetY);
+        labelName.setPrefWidth(width / 5);
+        labelName.setFont(new Font(width / 50));
+        labelName.setTextAlignment(TextAlignment.RIGHT);
+        group.getChildren().add(labelName);
+
+        TextField name = new TextField();
+        name.setLayoutX(width / 2);
+        name.setLayoutY(headerY + offsetY);
+        name.setPrefWidth(width / 5);
+        group.getChildren().add(name);
+
+        Button save = new Button("Confirm");
+        save.setLayoutX(width / 2);
+        save.setLayoutY(headerY + offsetY * 2);
+        save.setPrefWidth(width / 5);
+        save.setPrefHeight(height / 15);
+        save.setFont(new Font(width / 50));
+        save.setOnAction(actionEvent -> {
+            game.clearPane();
+            SaveBoard.saveBoard(game);
+            MainMenuGUI.drawMenu(game);
+        });
+        group.getChildren().add(save);
+        buttons.add("saveChanges", save);
     }
 }

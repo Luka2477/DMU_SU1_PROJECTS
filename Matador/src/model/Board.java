@@ -11,17 +11,16 @@ public class Board {
         this.init();
     }
 
-    private void init() {
+    public void init() {
         for(int i=0; i<this.size-4; i++)
             this.board.add(new Land(i));
     }
 
     public int getSize() { return this.size; }
 
+    public ArrayList<Land> getBoard() { return this.board; }
+
     public Land getLand(int position) { return this.board.get(position); }
 
-    public void setLand(int position, BuyableLand land) {
-        this.board.remove(position);
-        this.board.set(position, land);
-    }
+    public void setLand(int position, BuyableLand land) { this.board.set(position, land); }
 }
