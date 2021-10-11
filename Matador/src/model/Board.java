@@ -17,7 +17,7 @@ public class Board {
     }
 
     public void convertBoard() {
-        this.board = (ArrayList<Land>) this.lands.clone();
+        this.board = new ArrayList<>(this.lands);
         this.board.addAll(this.buyableLands);
         this.board.sort(Comparator.comparing(Land::getPosition));
     }

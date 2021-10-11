@@ -1,6 +1,7 @@
 package model;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -68,7 +69,9 @@ public class GameGUI extends Application {
         MakeBoardGUI.drawBoard(this, text);
     }
 
-    public void loadBoard() {
+    public void loadBoard(String selectedItem) {
         this.clearPane();
+
+
     }
 }
