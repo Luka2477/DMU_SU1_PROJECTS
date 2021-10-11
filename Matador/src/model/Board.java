@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.function.Predicate;
 
 public class Board {
     // Defines the size of the board. Must be a multiple of 4...
